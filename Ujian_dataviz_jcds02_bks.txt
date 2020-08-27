@@ -1,0 +1,37 @@
+use world;
+
+-- 1
+select *  from city where countrycode = 'USA' order by population desc limit 10;
+-- 2
+SELECT id, district, countrycode as country, population from city order by population desc limit 10;
+-- 3
+select c.code, c.name, cl.language, cl.isofficial, cl.percentage
+from country c join countrylanguage cl on c.code = cl.countrycode where language = "english";
+
+--4
+select name, population, gnp/population as GNPperCapita, capital as IbuKota, population as PendudukIbuKota from country where region = 'southeast asia';
+--5
+select name, continent, LifeExpectancy, gnp from country where 
+continent = 'Asia' and LifeExpectancy > (select avg(LifeExpectancy) from country where continent = 'europe')  order by LifeExpectancy desc limit 10;
+
+--1
+select name, continent, indepyear from country  where continent = 'Asia' and indepyear is not null order by indepyear asc limit 3;
+--2
+select name, gnp-gnpold as gnp_growth from country order by gnp_growth desc limit 3;
+--3
+select c.name, c.surfacearea, cl.language, cl.isofficial from country c join countrylanguage cl on cl.countrycode = c.code 
+where (c.surfacearea < (select avg(surfacearea) from country where continent = 'europe')) and (language = "English");
+
+
+
+
+
+
+
+
+
+
+
+
+
+
